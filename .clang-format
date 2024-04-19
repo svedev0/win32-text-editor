@@ -1,0 +1,19 @@
+# options: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 100
+# does (int) x instead of (int)x
+SpaceAfterCStyleCast: true
+UseTab: Never
+AllowShortIfStatementsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Empty
+AlignAfterOpenBracket: AlwaysBreak
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: DontAlign
+AlignTrailingComments: true
+BinPackArguments: false
+BinPackParameters: false
+BreakConstructorInitializers: AfterColon
+LineEnding: CRLF
+SpacesBeforeTrailingComments: 2
