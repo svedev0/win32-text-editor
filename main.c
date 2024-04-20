@@ -1,7 +1,7 @@
 #include "main.h"
 #include <windows.h>
 
-// clang main.c -o main.exe -mwindows -municode -luser32 -lgdi32 -lComdlg32
+// clang main.c -o main.exe -mwindows -municode -luser32 -lgdi32 -lcomdlg32 -lshell32
 
 HWND hEdit;
 HWND hPath;
@@ -123,6 +123,10 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
                 DestroyWindow(hWnd);
             }
             break;
+
+        case MENU_ABOUT_AUTHOR:
+            ShellExecuteW(NULL, L"open", AUTHOR_URL, NULL, NULL, SW_SHOWNORMAL);
+            break;
         }
         break;
 
@@ -163,10 +167,6 @@ void showErrorPopup(const wchar_t *msg) {
     MessageBoxW(NULL, msg, L"Error", MB_ICONERROR);
 }
 
-void showWarningPopup(HWND hWnd, const wchar_t *msg) {
-    MessageBoxW(hWnd, msg, L"Warning", MB_ICONWARNING);
-}
-
 void showInfoPopup(HWND hWnd, const wchar_t *msg) {
     MessageBoxW(hWnd, msg, L"Information", MB_ICONINFORMATION);
 }
@@ -180,7 +180,7 @@ void addMenus(HWND hWnd) {
     AppendMenuW(hFileMenu, MF_STRING, MENU_FILE_EXIT, L"Exit");
 
     HMENU hAboutMenu = CreateMenu();
-    AppendMenuW(hAboutMenu, MF_STRING, 0, L"Created by svedev0");
+    AppendMenuW(hAboutMenu, MF_STRING, MENU_ABOUT_AUTHOR, L"Author: svedev0");
 
     HMENU hMenu = CreateMenu();
     AppendMenuW(hMenu, MF_POPUP, (UINT_PTR) hFileMenu, L"File");
