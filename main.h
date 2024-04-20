@@ -9,8 +9,10 @@
 #define MENU_FILE_SAVE    1003
 #define MENU_FILE_SAVE_AS 1004
 #define MENU_FILE_EXIT    1005
+#define MENU_ABOUT_AUTHOR 2001
 
 #define EXAMPLE_FILE_PATH L"C:\\path\\to\\file.c"
+#define AUTHOR_URL        L"https://github.com/svedev0"
 
 const wchar_t *wndClass = L"WinApp";
 const wchar_t *wndTitle = L"Text editor";
@@ -20,8 +22,6 @@ const int wndHeight = 500;
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 void showErrorPopup(const wchar_t *errorMsg);
-
-void showWarningPopup(HWND hWnd, const wchar_t *infoMsg);
 
 void showInfoPopup(HWND hWnd, const wchar_t *infoMsg);
 
