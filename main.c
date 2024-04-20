@@ -195,8 +195,7 @@ void addControls(HWND hWnd) {
     hEdit = CreateWindowExW(
         WS_EX_CLIENTEDGE,
         L"Edit",
-        L"#include <stdio.h>\r\n\r\nint main() {\r\n    printf(\"Hello, World!\");\r\n}",
-        // ES_AUTOHSCROLL | ES_AUTOVSCROLL |
+        EXAMPLE_FILE_TEXT,
         WS_CHILD | WS_VISIBLE | ES_MULTILINE | ES_NOHIDESEL | WS_VSCROLL | WS_HSCROLL,
         -2,
         -2,

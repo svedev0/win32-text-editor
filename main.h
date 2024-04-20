@@ -16,8 +16,11 @@
 #define MENU_FILE_EXIT    1005
 #define MENU_ABOUT_AUTHOR 2001
 
-#define EXAMPLE_FILE_PATH L"C:\\path\\to\\file.c"
 #define AUTHOR_URL        L"https://github.com/svedev0"
+#define EXAMPLE_FILE_PATH L"C:\\path\\to\\file.c"
+#define EXAMPLE_FILE_TEXT \
+    L"#include <stdio.h>\r\n\r\n" \
+    L"int main() {\r\n    printf(\"Hello, World!\");\r\n}"
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 
