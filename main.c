@@ -1,8 +1,6 @@
 #include "main.h"
 #include <windows.h>
 
-// clang main.c -o main.exe -mwindows -municode -luser32 -lgdi32 -lcomdlg32 -lshell32
-
 HWND hEdit;
 HWND hPath;
 HBRUSH hWndBkBrush;
@@ -19,21 +17,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hInstance = hInstance;
     wcex.lpfnWndProc = WindowProc;
-    wcex.lpszClassName = wndClass;
+    wcex.lpszClassName = WND_CLASS;
     wcex.lpszMenuName = NULL;
     wcex.style = CS_HREDRAW | CS_VREDRAW;
 
     if (!RegisterClassExW(&wcex)) {
-        showErrorPopup(L"RegisterClassEx failed!");
+        showErrorPopup(L"RegisterClassExW failed!");
         return EXIT_FAILURE;
     }
 
     HWND hWnd = CreateWindowExW(
         0L,
-        wndClass,
-        wndTitle,
-        // WS_OVERLAPPEDWINDOW,
-        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,  //  | WS_MAXIMIZEBOX
+        WND_CLASS,
+        WND_TITLE,
+        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
@@ -49,7 +46,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     }
 
     ShowWindow(hWnd, nCmdShow);
-    SetWindowPos(hWnd, HWND_TOP, 0, 0, wndWidth, wndHeight, SWP_NOMOVE);
+    SetWindowPos(hWnd, HWND_TOP, 0, 0, WND_WIDTH, WND_HEIGHT, SWP_NOMOVE);
     UpdateWindow(hWnd);
 
     MSG msg;
@@ -199,17 +196,18 @@ void addControls(HWND hWnd) {
         WS_EX_CLIENTEDGE,
         L"Edit",
         L"#include <stdio.h>\r\n\r\nint main() {\r\n    printf(\"Hello, World!\");\r\n}",
-        WS_CHILD | WS_VISIBLE | ES_MULTILINE | ES_NOHIDESEL | ES_AUTOHSCROLL | ES_AUTOVSCROLL,
+        // ES_AUTOHSCROLL | ES_AUTOVSCROLL |
+        WS_CHILD | WS_VISIBLE | ES_MULTILINE | ES_NOHIDESEL | WS_VSCROLL | WS_HSCROLL,
         -2,
         -2,
-        wndWidth - 12,
-        wndHeight - 70,
+        WND_WIDTH - 14,
+        WND_HEIGHT - 82,
         hWnd,
         NULL,
         NULL,
         NULL);
 
-    HFONT hEditFont = createFont(22, 500, L"Cascadia Code PL");
+    HFONT hEditFont = createFont(22, 500, L"Consolas");
     SendMessageW(hEdit, WM_SETFONT, (WPARAM) hEditFont, 0);
     SendMessageW(hEdit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELPARAM(5, 5));
 
@@ -219,15 +217,15 @@ void addControls(HWND hWnd) {
         EXAMPLE_FILE_PATH,
         WS_CHILD | WS_VISIBLE,
         0,
-        wndHeight - 80,
-        wndWidth,
+        WND_HEIGHT - 80,
+        WND_WIDTH,
         80,
         hWnd,
         NULL,
         NULL,
         NULL);
 
-    HFONT hPathFont = createFont(18, 400, L"Cascadia Code");
+    HFONT hPathFont = createFont(18, 400, L"Consolas");
     SendMessageW(hPath, WM_SETFONT, (WPARAM) hPathFont, 0);
 }
 
